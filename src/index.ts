@@ -1,24 +1,24 @@
 import { createUnplugin } from 'unplugin'
-import { createFilter } from '@rollup/pluginutils'
 import { type Options, resolveOption } from './core/options'
+import { pregQuote } from './utils/regex'
 
 export default createUnplugin<Options | undefined>((rawOptions = {}) => {
-  const options = resolveOption(rawOptions)
-  const filter = createFilter(options.include, options.exclude)
+  const options = resolveOption(rawOptions);
+  const name = 'unplugin-module-resolver';
 
-  const name = 'unplugin-starter'
   return {
     name,
-    enforce: undefined,
+    resolveId(source: string) {
+      if (!source.startsWith(options.prefix)) {
+        return null;
+      }
 
-    transformInclude(id) {
-      return filter(id)
-    },
+      const modulePath = source.replace(
+        new RegExp(`^${pregQuote(options.prefix)}(${options.moduleRegex})`),
+        `${options.target}/$1/${options.assetsDir}`
+      );
 
-    transform(code, id) {
-      // eslint-disable-next-line no-console
-      console.log(code, id)
-      return undefined
+      return { id: modulePath, external: options.external };
     },
-  }
+  };
 })

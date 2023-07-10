@@ -1,8 +1,8 @@
 {
-  "name": "unplugin-starter",
-  "version": "0.0.0",
+  "name": "unplugin-module-resolver",
+  "version": "0.0.1",
   "packageManager": "pnpm@8.6.7",
-  "description": "Description.",
+  "description": "Module resolver for unplugin",
   "keywords": [
     "unplugin",
     "rollup",
@@ -19,7 +19,7 @@
     "type": "git",
     "url": "git+https://github.com/sxzz/unplugin-starter.git"
   },
-  "author": "三咲智子 <sxzz@sxzz.moe>",
+  "author": "Victor R <viicslen@github.com>",
   "files": [
     "dist"
   ],
